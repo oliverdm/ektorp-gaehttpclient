@@ -21,7 +21,6 @@ import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.bind.DatatypeConverter;
-import org.apache.http.HttpEntity;
 import org.ektorp.http.HttpClient;
 import org.ektorp.http.HttpResponse;
 import org.ektorp.util.Exceptions;
@@ -132,23 +131,6 @@ public class GAEHttpClient implements HttpClient {
                 req.setHeader(new HTTPHeader("Content-Type", contentType));
             }
             return this.executeRequest(req, headers);
-        } catch (Exception e) {
-            throw Exceptions.propagate(e);
-        }
-    }
-     
-    protected GAEHttpResponse executePutPost(HTTPRequest req, HttpEntity entity) {
-        if (entity.isChunked()) {
-            throw new UnsupportedOperationException("Chunked entity not supported");
-        }
-        else if (entity.isStreaming()) {
-            throw new UnsupportedOperationException("Streaming entity not supported");
-        }
-        try (InputStream is = entity.getContent()) {
-            long contentLength = entity.getContentLength();
-            byte[] content = this.write(is, contentLength);
-            String contentType = entity.getContentEncoding().getValue();
-            return this.executePutPost(req, content, contentType);
         } catch (Exception e) {
             throw Exceptions.propagate(e);
         }
@@ -277,16 +259,6 @@ public class GAEHttpClient implements HttpClient {
 
     @Override
     public void shutdown() {
-    }
-
-    @Override
-    public HttpResponse put(String uri, HttpEntity entity) {
-        return this.executePutPost(this.req(uri, HTTPMethod.PUT), entity);
-    }
-
-    @Override
-    public HttpResponse post(String uri, HttpEntity entity) {
-        return this.executePutPost(this.req(uri, HTTPMethod.POST), entity);
     }
     
     /**

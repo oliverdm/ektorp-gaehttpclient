@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
     <!-- Match ektorp version -->
-    <version>1.4.3</version>
+    <version>1.4.0</version>
     
     <name>Ektorp GAEHttpClient</name>
     <groupId>io.github.oliverdm</groupId>
@@ -32,12 +32,6 @@
             <groupId>org.ektorp</groupId>
             <artifactId>org.ektorp</artifactId>
             <version>${ektorp.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpcore</artifactId>
-            <version>${httpclient.version}</version>
             <scope>provided</scope>
         </dependency>
     
