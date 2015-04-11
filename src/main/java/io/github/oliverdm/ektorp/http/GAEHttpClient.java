@@ -616,12 +616,13 @@ public class GAEHttpClient implements HttpClient {
         
         /**
          * Sets whether to validate SSL certificates.
-         * @param validate if set to <code>true</code> SSL certificates are not
+         * By default certificates are validated.
+         * @param relaxed if set to <code>true</code> SSL certificates are not
          * validated
          * @return this builder (for chaining)
          */
-        public Builder relaxedSSLSettings(boolean validate) {
-            if (!validate) {
+        public Builder relaxedSSLSettings(boolean relaxed) {
+            if (relaxed) {
                 this.options.doNotValidateCertificate();
             } else {
                 this.options.validateCertificate();
